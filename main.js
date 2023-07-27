@@ -8,6 +8,7 @@ const BOT_VERSION = '0.0.1-echo'
     definitions
 */
 /* commands */
+const DEF_COMMAND_DEBUG = 'debug'
 const DEF_COMMAND_ECHO = 'echo';
 const DEF_COMMAND_JUMP = 'jump';
 const DEF_COMMAND_HELP = 'help';
@@ -31,12 +32,15 @@ const bot = mineflayer.createBot({
 bot.on('chat', async (username, message) =>{
     if (username === bot.username) return
 
-    // bot.chat(message)
-    switch(message)
+    const first_word = 0;
+    switch(message.split(' ')[first_word])
     {
         case DEF_COMMAND_ECHO:
         {
+            const space_symbol = 1;
+
             bot.chat('-> echo command');
+            bot.chat(message.slice(message.split(' ')[0].length + space_symbol));
             break;
         }
         case DEF_COMMAND_HELP:
@@ -47,13 +51,18 @@ bot.on('chat', async (username, message) =>{
         case DEF_COMMAND_JUMP:
         {
             bot.chat('-> jump command');
-            bot.setControlState('jump', true)
+            bot.setControlState('jump', true);
             break;
         }
         case DEF_COMMAND_UNJUMP:
         {
             bot.chat('-> unjump command');
-            bot.setControlState('jump', false)
+            bot.setControlState('jump', false);
+            break;
+        }
+        case DEF_COMMAND_DEBUG:
+        {
+            bot.chat(message.slice(2));
             break;
         }
         default:
