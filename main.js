@@ -1,6 +1,8 @@
 /*
     main file
 */
+const BOT_VERSION = '0.0.1-echo'
+
 
 /*
     definitions
@@ -10,6 +12,10 @@ const DEF_COMMAND_ECHO = 'echo';
 const DEF_COMMAND_JUMP = 'jump';
 const DEF_COMMAND_HELP = 'help';
 const DEF_COMMAND_UNJUMP = 'unjump';
+
+/* help answer */
+const DEF_ANSWER_HELP ='bot version: ' + BOT_VERSION +
+'\n+--------------+\n|         help         |\n+--------------+\ncommands:\n - jump|unjump\n - help\n - echo [message]';
 
 const mineflayer = require('mineflayer')
 
@@ -35,7 +41,7 @@ bot.on('chat', async (username, message) =>{
         }
         case DEF_COMMAND_HELP:
         {
-            bot.chat('-> help command');
+            bot.chat(DEF_ANSWER_HELP);
             break;
         }
         case DEF_COMMAND_JUMP:
