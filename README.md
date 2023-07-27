@@ -4,5 +4,5 @@ This bot will help you beat this game!
 
 ## commands
 - help
-- jump
+- jump/unjump
 - echo [message]
