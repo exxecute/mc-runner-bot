@@ -41,11 +41,13 @@ bot.on('chat', async (username, message) =>{
         case DEF_COMMAND_JUMP:
         {
             bot.chat('-> jump command');
+            bot.setControlState('jump', true)
             break;
         }
         case DEF_COMMAND_UNJUMP:
         {
             bot.chat('-> unjump command');
+            bot.setControlState('jump', false)
             break;
         }
         default:
