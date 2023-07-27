@@ -3,6 +3,8 @@
 */
 const BOT_VERSION = '0.0.1'
 
+const mineflayer = require('mineflayer')
+const fs = require('fs');
 
 /*
     definitions
@@ -13,12 +15,11 @@ const DEF_COMMAND_ECHO = 'echo';
 const DEF_COMMAND_JUMP = 'jump';
 const DEF_COMMAND_HELP = 'help';
 const DEF_COMMAND_UNJUMP = 'unjump';
+const DEF_COMMAND_JOKE = 'joke';
 
 /* help answer */
 const DEF_ANSWER_HELP ='bot version: ' + BOT_VERSION +
 '\n+--------------+\n|         help         |\n+--------------+\ncommands:\n - jump|unjump\n - help\n - echo [message]';
-
-const mineflayer = require('mineflayer')
 
 /* bot configs */
 const bot = mineflayer.createBot({
@@ -62,8 +63,13 @@ bot.on('chat', async (username, message) =>{
         }
         case DEF_COMMAND_DEBUG:
         {
-            bot.chat(message.slice(2));
+            // bot.chat(read_file('jokes.txt'));
+            console.log(read_file("jokes.txt"));
             break;
+        }
+        case DEF_COMMAND_JOKE:
+        {
+            bot.chat('-> joke command');
         }
         default:
         {
@@ -72,3 +78,16 @@ bot.on('chat', async (username, message) =>{
         }
     }
 })
+
+function read_file(file) /* how to return ? */
+{
+    file_data = ""
+    fs.readFile(file, 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        file_data = data;
+      });
+    return file_data;
+}
