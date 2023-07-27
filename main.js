@@ -16,7 +16,12 @@ const DEF_COMMAND_UNJUMP = 'unjump';
 
 /* help answer */
 const DEF_ANSWER_HELP ='bot version: ' + BOT_VERSION +
-'\n+--------------+\n|         help         |\n+--------------+\ncommands:\n - jump|unjump\n - help\n - echo [message]';
+'\n+--------------+\n|         help         |\n+--------------+' + 
+'\ncommands:' + 
+'\n - jump | unjump' +
+'\n - help' + 
+'\n - echo [message]' +
+'\ncontributor: 3xecvte';
 
 const mineflayer = require('mineflayer')
 
