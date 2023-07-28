@@ -1,7 +1,7 @@
 /*
     main file
 */
-const BOT_VERSION = '0.0.1'
+const BOT_VERSION = '0.0.2'
 
 
 /*
