@@ -33,47 +33,53 @@ const bot = mineflayer.createBot({
     version: '1.20.1'
 })
 
-/* bot chat */
-bot.on('chat', async (username, message) =>{
-    if (username === bot.username) return
+bot.on('spawn', () => {
+    // mc_data = require('minecraft-data')(bot.version);
 
-    const first_word = 0;
-    switch(message.split(' ')[first_word])
-    {
-        case DEF_COMMAND_ECHO:
-        {
-            const space_symbol = 1;
 
-            bot.chat('-> echo command');
-            bot.chat(message.slice(message.split(' ')[0].length + space_symbol));
-            break;
-        }
-        case DEF_COMMAND_HELP:
+    /* bot chat */
+    bot.on('chat', async (username, message) =>{
+        if (username === bot.username) return
+
+        const first_word = 0;
+        switch(message.split(' ')[first_word])
         {
-            bot.chat(DEF_ANSWER_HELP);
-            break;
+            case DEF_COMMAND_ECHO:
+            {
+                const space_symbol = 1;
+
+                bot.chat('-> echo command');
+                bot.chat(message.slice(message.split(' ')[0].length + space_symbol));
+                break;
+            }
+            case DEF_COMMAND_HELP:
+            {
+                bot.chat(DEF_ANSWER_HELP);
+                break;
+            }
+            case DEF_COMMAND_JUMP:
+            {
+                bot.chat('-> jump command');
+                bot.setControlState('jump', true);
+                break;
+            }
+            case DEF_COMMAND_UNJUMP:
+            {
+                bot.chat('-> unjump command');
+                bot.setControlState('jump', false);
+                break;
+            }
+            case DEF_COMMAND_DEBUG:
+            {
+                bot.chat(message.slice(2));
+                break;
+            }
+            default:
+            {
+                bot.chat('-> no "' + message + '" command');
+                break;
+            }
         }
-        case DEF_COMMAND_JUMP:
-        {
-            bot.chat('-> jump command');
-            bot.setControlState('jump', true);
-            break;
-        }
-        case DEF_COMMAND_UNJUMP:
-        {
-            bot.chat('-> unjump command');
-            bot.setControlState('jump', false);
-            break;
-        }
-        case DEF_COMMAND_DEBUG:
-        {
-            bot.chat(message.slice(2));
-            break;
-        }
-        default:
-        {
-            bot.chat('-> no "' + message + '" command');
-            break;
-        }
-    }
+    })
+
 })
