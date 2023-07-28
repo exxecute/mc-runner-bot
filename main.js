@@ -41,6 +41,7 @@ bot.loadPlugin(pathfinder);
 
 bot.on('spawn', () => {
     mc_data = require('minecraft-data')(bot.version);
+    bot.pathfinder.stop();
 
     /* bot chat */
     bot.on('chat', async (username, message) =>{
@@ -76,7 +77,23 @@ bot.on('spawn', () => {
             }
             case DEF_COMMAND_DEBUG:
             {
-                bot.chat(message.slice(2));
+                block_name =  "diamond_ore";
+                if (bot.registry.blocksByName[block_name] === undefined) {
+                    bot.chat(`${block_name} is not a block name`)
+                    return
+                  }
+                const ids = [bot.registry.blocksByName[block_name].id]
+                const blocks = bot.findBlocks({ matching: ids, maxDistance: 128, count: 5 });
+                
+                bot.chat(`I found ${blocks.length}`);
+                for (index = 0; index < blocks.length; index++)
+                {
+                    // if(blocks[index].y < -50)
+                    // {
+                        bot.chat(`I x ${blocks[index].x}, y ${blocks[index].y}, z ${blocks[index].z}`);
+                    // }
+                }
+                
                 break;
             }
             case DEF_COMMAND_FOLLOW:
