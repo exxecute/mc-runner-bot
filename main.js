@@ -13,6 +13,7 @@ const DEF_COMMAND_ECHO = 'echo';
 const DEF_COMMAND_JUMP = 'jump';
 const DEF_COMMAND_HELP = 'help';
 const DEF_COMMAND_UNJUMP = 'unjump';
+const DEF_COMMAND_FOLLOW = 'follow';
 
 /* help answer */
 const DEF_ANSWER_HELP ='bot version: ' + BOT_VERSION +
@@ -21,9 +22,11 @@ const DEF_ANSWER_HELP ='bot version: ' + BOT_VERSION +
 '\n - jump | unjump' +
 '\n - help' + 
 '\n - echo [message]' +
+'\n - follow' +
 '\ncontributor: 3xecvte';
 
-const mineflayer = require('mineflayer')
+const mineflayer = require('mineflayer');
+const { pathfinder, Movements, goals } = require('mineflayer-pathfinder');
 
 /* bot configs */
 const bot = mineflayer.createBot({
@@ -33,9 +36,10 @@ const bot = mineflayer.createBot({
     version: '1.20.1'
 })
 
-bot.on('spawn', () => {
-    // mc_data = require('minecraft-data')(bot.version);
+bot.loadPlugin(pathfinder);
 
+bot.on('spawn', () => {
+    mc_data = require('minecraft-data')(bot.version);
 
     /* bot chat */
     bot.on('chat', async (username, message) =>{
@@ -72,6 +76,16 @@ bot.on('spawn', () => {
             case DEF_COMMAND_DEBUG:
             {
                 bot.chat(message.slice(2));
+                break;
+            }
+            case DEF_COMMAND_FOLLOW:
+            {
+                bot.chat('-> follow command');
+                follow_player = bot.players[username];
+                target = follow_player.entity;
+
+                bot.pathfinder.setMovements(new Movements(bot));
+                bot.pathfinder.setGoal(new goals.GoalFollow(target, 1), true);
                 break;
             }
             default:
