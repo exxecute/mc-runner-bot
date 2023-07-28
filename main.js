@@ -14,6 +14,7 @@ const DEF_COMMAND_JUMP = 'jump';
 const DEF_COMMAND_HELP = 'help';
 const DEF_COMMAND_UNJUMP = 'unjump';
 const DEF_COMMAND_FOLLOW = 'follow';
+const DEF_COMMAND_UNFOLLOW = 'unfollow';
 
 /* help answer */
 const DEF_ANSWER_HELP ='bot version: ' + BOT_VERSION +
@@ -22,7 +23,7 @@ const DEF_ANSWER_HELP ='bot version: ' + BOT_VERSION +
 '\n - jump | unjump' +
 '\n - help' + 
 '\n - echo [message]' +
-'\n - follow' +
+'\n - follow | unfollow' +
 '\ncontributor: 3xecvte';
 
 const mineflayer = require('mineflayer');
@@ -86,6 +87,12 @@ bot.on('spawn', () => {
 
                 bot.pathfinder.setMovements(new Movements(bot));
                 bot.pathfinder.setGoal(new goals.GoalFollow(target, 1), true);
+                break;
+            }
+            case DEF_COMMAND_UNFOLLOW:
+            {
+                bot.chat('-> unfollow command');
+                bot.pathfinder.stop();
                 break;
             }
             default:

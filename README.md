@@ -8,7 +8,7 @@ Used "mineflayer" rep (https://github.com/PrismarineJS/mineflayer/tree/master)
 - help
 - jump/unjump
 - echo [message]
-- follow
+- follow/unfollow
 
 ## contributor
 3x3cvte 3xecvte@gmail.com
